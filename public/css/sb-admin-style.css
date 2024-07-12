@@ -1,0 +1,23 @@
+.form-control {
+    width: auto;
+}
+
+.search-input {
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+    border-right: 0;
+}
+
+.input-group .form-control {
+    box-shadow: none;
+}
+
+.input-group .form-control:focus {
+    border-color: #ced4da;
+    box-shadow: none;
+}
+
+.input-group-prepend .input-group-text {
+    background: white;
+    border: 0;
+}
