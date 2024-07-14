@@ -181,3 +181,60 @@ $(document).ready(function() {
         });
     });
 });
+
+
+// Alert update data (file)
+$(document).ready(function() {
+    $('#update-form-data').on('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        // Clear previous error messages
+        $('.error-message').remove();
+
+        // Create FormData object
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: $(this).attr('action'),
+            method: $(this).attr('method'),
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                if (response.status === 'success') {
+                    swal('Success', 'Data berhasil diperbarui!', 'success')
+                    .then(() => {
+                        window.location.href = redirectUrl; // Redirect after success
+                    });
+                }
+            },
+            error: function(xhr) {
+                if (xhr.status === 422) {
+                    // Handle validation errors
+                    swal('Oops', 'Data gagal diperbarui', 'error').then(() => {
+                        var errors = xhr.responseJSON.errors;
+                        $.each(errors, function(key, value) {
+                            var inputField = $('input[name="' + key + '"]');
+                            if (inputField.length) {
+                                inputField.after('<div class="error-message" style="color: red; margin-top: 0.25rem;">' + value[0] + '</div>');
+                            }
+
+                            var textareaField = $('textarea[name="' + key + '"]');
+                            if (textareaField.length) {
+                                textareaField.after('<div class="error-message" style="color: red; margin-top: 0.25rem;">' + value[0] + '</div>');
+                            }
+
+                            var selectField = $('select[name="' + key + '"]');
+                            if (selectField.length) {
+                                selectField.after('<div class="error-message" style="color: red; margin-top: 0.25rem;">' + value[0] + '</div>');
+                            }
+                        });
+                    });
+                } else {
+                    // Handle other errors
+                    swal('Oops', 'Data gagal diperbarui', 'error');
+                }
+            }
+        });
+    });
+});

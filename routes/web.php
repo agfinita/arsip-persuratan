@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ArsipSuratController;
 use App\Http\Controllers\KategoriSuratController;
+use App\Http\Controllers\SuratDiarsipController;
 use App\Http\Controllers\TentangPenggunaController;
 
 /*
@@ -21,15 +22,17 @@ use App\Http\Controllers\TentangPenggunaController;
 //     return view('welcome');
 // });
 
-Route::group([], function () {
+Route::get('/login', [HomeController::class, 'masuk'])->name('login')->middleware('guest');
+Route::post('/prosesLogin', [HomeController::class, 'authenticate']);
 
-    Route::get('/page/login', function () {
-        return view('views.login');
-    });
+Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/', [HomeController::class, 'hitungTotal']);
 
-    Route::resource('/arsip-surat', ArsipSuratController::class);
+    Route::resource('/arsip-surat', SuratDiarsipController::class);
+    Route::get('/arsip-surat/show/{id}', [SuratDiarsipController::class, 'show']);
+    Route::get('/arsip-surat/edit/{id}', [SuratDiarsipController::class, 'edit']);
+    Route::patch('/arsip-surat/edit/{id}', [SuratDiarsipController::class, 'update']);
 
     Route::resource('/arsip/kategori', KategoriSuratController::class)->except('show');
     Route::get('/arsip/kategori/edit/{id}', [KategoriSuratController::class, 'edit']);
@@ -38,4 +41,6 @@ Route::group([], function () {
     Route::resource('/about', TentangPenggunaController::class)->except('create', 'store', 'show', 'edit', 'update', 'destroy');
 
 });
+
+Route::post('/logout', [HomeController::class, 'logout'])->name('logout');
 

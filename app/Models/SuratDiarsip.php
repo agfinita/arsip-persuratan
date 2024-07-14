@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ArsipSurat extends Model
+class SuratDiarsip extends Model
 {
     use HasFactory;
 
-    protected $table    = 'arsip_surat';
+    protected $table    = 'surat_diarsip';
 
     protected $fillable = [
         'nomor_surat',
@@ -20,6 +20,6 @@ class ArsipSurat extends Model
 
     public function kategoriSurat()
     {
-        return $this->belongsTo(KategoriSurat::class, 'kategori_id');
+        return $this->belongsTo(KategoriSurat::class, 'id_kategori');
     }
 }

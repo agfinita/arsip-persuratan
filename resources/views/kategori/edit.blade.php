@@ -89,7 +89,7 @@
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <div>
-                            <h1 class="h3 mb-2 text-gray-800">Kategori Surat >> Edit</h1>
+                            <h1 class="h3 mb-2 text-gray-800">Kategori Surat &raquo; Edit</h1>
                             <p> Edit data kategori.<br>
                                 Jika sudah selesai, jangan lupa mengklik tombol "Simpan".
                             </p>
@@ -97,22 +97,29 @@
                     </div>
 
                     <div class="card shadow mb-4">
-                        <div class="card-body">
-                            <form action="{{ url('/arsip/kategori/edit/' . $kategoriSurat->id) }}" id="update-form" method="POST">
-                                @csrf
-                                @method('patch')
+
+                        <form action="{{ url('/arsip/kategori/edit/' . $kategoriSurat->id) }}" id="update-form"
+                            method="POST">
+                            @csrf
+                            @method('patch')
+
+                            <div class="card-body">
                                 <!-- ID Kategori -->
                                 <div class="form-group row">
-                                    <label for="category_id" class="col-sm-12 col-md-2 col-form-label">ID Kategori</label>
+                                    <label for="category_id" class="col-sm-12 col-md-2 col-form-label">ID
+                                        Kategori</label>
                                     <div class="col-sm-12 col-md-10">
-                                        <input type="text" readonly class="form-control" id="id_category" name="category_id" value="{{ $kategoriSurat->id }}">
+                                        <input type="text" readonly class="form-control" id="id_category"
+                                            name="category_id" value="{{ $kategoriSurat->id }}">
                                     </div>
                                 </div>
                                 <!-- Nama Kategori -->
                                 <div class="form-group row">
-                                    <label for="category_name" class="col-sm-12 col-md-2 col-form-label">Nama Kategori</label>
+                                    <label for="category_name" class="col-sm-12 col-md-2 col-form-label">Nama
+                                        Kategori</label>
                                     <div class="col-sm-12 col-md-10">
-                                        <input type="text" class="form-control" id="category" name="category_name" value="{{ $kategoriSurat->nama_kategori }}">
+                                        <input type="text" class="form-control" id="category" name="category_name"
+                                            value="{{ $kategoriSurat->nama_kategori }}">
                                     </div>
                                 </div>
                                 <!-- Keterangan -->
@@ -122,13 +129,14 @@
                                         <textarea class="form-control" id="ket" name="keterangan" rows="4">{{ $kategoriSurat->keterangan }}</textarea>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="card-footer d-flex justify-content-start">
-                                    <a href="{{ url('/arsip/kategori') }}" class="btn btn-warning m-2">Kembali</a>
-                                    <button type="submit" id="kirim" name="kirim" class="btn btn-primary m-2">Simpan</button>
-                                </div>
-                            </form>
-                        </div>
+                            <div class=" card-footer d-flex justify-content-start">
+                                <a href="{{ url('/arsip/kategori') }}" class="btn btn-warning m-2">Kembali</a>
+                                <button type="submit" id="kirim" name="kirim" class="btn btn-primary m-2">Simpan</button>
+                            </div>
+                        </form>
+
                     </div>
                 </div>
                 <!-- /.container-fluid -->

@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('arsip_surat', function (Blueprint $table) {
+        Schema::create('surat_diarsip', function (Blueprint $table) {
             $table->id();
             $table->string('nomor_surat', '50')->nullable(false);
-            $table->unsignedBigInteger('kategori_id');
+            $table->unsignedBigInteger('id_kategori');
             $table->string('judul', '50')->nullable(false);
             $table->string('uploaded_file', 255)->nullable();
             $table->timestamps();
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('arsip_surat');
+        Schema::dropIfExists('surat_diarsip');
     }
 };

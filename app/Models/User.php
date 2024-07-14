@@ -23,6 +23,7 @@ class User extends Authenticatable
         'prodi',
         'email',
         'password',
+        'is_active'
     ];
 
     /**

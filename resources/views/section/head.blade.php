@@ -5,6 +5,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <link rel="icon" type="image/png" href="{{ asset('img/archive.png') }}">
     <title>Sistem Informasi Arsip Surat</title>
 
     <!-- Custom fonts for this template-->

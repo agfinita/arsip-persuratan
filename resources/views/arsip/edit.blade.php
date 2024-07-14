@@ -41,7 +41,7 @@
             </div>
 
             <!-- Nav Item - Charts -->
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="{{ url('/arsip-surat') }}">
                     <i class="fas fa-folder"></i>
                     <span>Arsip</span>
@@ -49,7 +49,7 @@
             </li>
 
             <!-- Nav Item - Tables -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="{{ url('/arsip/kategori') }}">
                     <i class="fas fa-boxes"></i>
                     <span>Kategori</span>
@@ -89,46 +89,90 @@
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <div>
-                            <h1 class="h3 mb-2 text-gray-800">Kategori Surat >> Edit</h1>
-                            <p> Edit data kategori.<br>
+                            <h1 class="h3 mb-2 text-gray-800">Arsip Surat &raquo; Edit</h1>
+                            <p> Edit arsip surat.<br>
                                 Jika sudah selesai, jangan lupa mengklik tombol "Simpan".
                             </p>
                         </div>
                     </div>
 
                     <div class="card shadow mb-4">
-                        <div class="card-body">
-                            <form action="{{ url('/arsip/kategori/edit/' . $kategoriSurat->id) }}" id="update-form" method="POST">
-                                @csrf
-                                @method('patch')
-                                <!-- ID Kategori -->
+
+                        <form action="{{ url('/arsip-surat/edit/' . $arsipSurat->id) }}" id="update-form-data"
+                            method="POST" enctype="multipart/form-data">
+                            @csrf
+                            @method('patch')
+
+                            <div class="card-body">
+                                <!-- Nomor Surat -->
                                 <div class="form-group row">
-                                    <label for="category_id" class="col-sm-12 col-md-2 col-form-label">ID Kategori</label>
+                                    <label for="nomor_surat" class="col-sm-12 col-md-2 col-form-label">Nomor
+                                        Surat</label>
                                     <div class="col-sm-12 col-md-10">
-                                        <input type="text" readonly class="form-control" id="id_category" name="category_id" value="{{ $kategoriSurat->id }}">
-                                    </div>
-                                </div>
-                                <!-- Nama Kategori -->
-                                <div class="form-group row">
-                                    <label for="category_name" class="col-sm-12 col-md-2 col-form-label">Nama Kategori</label>
-                                    <div class="col-sm-12 col-md-10">
-                                        <input type="text" class="form-control" id="category" name="category_name" value="{{ $kategoriSurat->nama_kategori }}">
-                                    </div>
-                                </div>
-                                <!-- Keterangan -->
-                                <div class="form-group row">
-                                    <label for="keterangan" class="col-sm-12 col-md-2 col-form-label">Keterangan</label>
-                                    <div class="col-sm-12 col-md-10">
-                                        <textarea class="form-control" id="ket" name="keterangan" rows="4">{{ $kategoriSurat->keterangan }}</textarea>
+                                        <input type="text" class="form-control" id="nomor_surat" name="nomor_surat"
+                                            value="{{ $arsipSurat->nomor_surat }}">
                                     </div>
                                 </div>
 
-                                <div class="card-footer d-flex justify-content-start">
-                                    <a href="{{ url('/arsip/kategori') }}" class="btn btn-warning m-2">Kembali</a>
-                                    <button type="submit" id="kirim" name="kirim" class="btn btn-primary m-2">Simpan</button>
+                                <!-- Kategori surat -->
+                                <div class="form-group row">
+                                    <label for="kategori" class="col-sm-12 col-md-2 col-form-label">Kategori</label>
+                                    <div class="col-sm-12 col-md-10">
+                                        <select class="form-control" id="kategori" name="id_kategori">
+                                            <option value="">Pilih Kategori</option>
+                                            @foreach ($kategoriSurat as $kategori)
+                                                <option value="{{ $kategori->id }}"
+                                                    {{ $kategori->id == $arsipSurat->id_kategori ? 'selected' : '' }}>
+                                                    {{ $kategori->nama_kategori }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
-                            </form>
-                        </div>
+
+                                <!-- Judul Surat -->
+                                <div class="form-group row">
+                                    <label for="judul" class="col-sm-12 col-md-2 col-form-label">Judul</label>
+                                    <div class="col-sm-12 col-md-10">
+                                        <input type="text" class="form-control" id="judul" name="judul"
+                                            value="{{ $arsipSurat->judul }}">
+                                    </div>
+                                </div>
+
+                                <!-- File Surat -->
+                                <div class="form-group row">
+                                    <label for="file_surat" class="col-sm-12 col-md-2 col-form-label">File Surat</label>
+                                    <div class="col-sm-12 col-md-10">
+                                        @if ($arsipSurat->uploaded_file)
+                                            <p>File saat ini: <a
+                                                    href="{{ url('/storage/' . $arsipSurat->uploaded_file) }}"
+                                                    target="_blank">{{ basename($arsipSurat->uploaded_file) }}</a></p>
+                                        @endif
+                                        <input class="form-control" type="file" id="file_surat" name="file_surat">
+                                    </div>
+                                </div>
+
+
+                                <!-- Waktu Pengarsipan -->
+                                <div class="form-group row">
+                                    <label for="waktu_arsip" class="col-sm-12 col-md-2 col-form-label">Waktu
+                                        Unggah</label>
+                                    <div class="col-sm-12 col-md-10">
+                                        <input class="form-control" type="datetime-local" id="waktu_arsip"
+                                            name="waktu_arsip"
+                                            value="{{ \Carbon\Carbon::parse($arsipSurat->created_at)->format('Y-m-d\TH:i:s') }}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Tombol Kembali dan Simpan -->
+                            <div class="card-footer d-flex justify-content-start">
+                                <a href="{{ url('/arsip-surat') }}" class="btn btn-warning m-2">Kembali</a>
+                                <button type="submit" id="kirim" name="kirim"
+                                    class="btn btn-primary m-2">Simpan</button>
+                            </div>
+                        </form>
+
+
                     </div>
                 </div>
                 <!-- /.container-fluid -->
@@ -168,7 +212,7 @@
 
     <!-- Page level custom scripts -->
     <script>
-        var redirectUrl = "{{ url('/arsip/kategori') }}";
+        var redirectUrl = "{{ url('/arsip-surat') }}";
     </script>
     <script src="{{ asset('js/sweetalert-custom.js') }}"></script>
 

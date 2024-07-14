@@ -147,7 +147,7 @@
                                         @else
                                             @foreach ($kategoriSurat as $ks )
                                             <tr>
-                                                <td>{{ $no++ }}</td>
+                                                <td>{{ $ks->id }}</td>
                                                 <td>{{ $ks->nama_kategori }}</td>
                                                 <td>{{ $ks->keterangan }}</td>
                                                 <td>
@@ -183,13 +183,7 @@
                                     </button>
 
                                     <!-- Pagination -->
-                                    <ul class="pagination justify-content-end mb-0">
-                                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                    </ul>
+                                    {!! $kategoriSurat->withQueryString()->links('pagination::bootstrap-5') !!}
                                 </div>
                             </div>
                         </div>

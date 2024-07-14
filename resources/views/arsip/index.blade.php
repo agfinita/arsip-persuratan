@@ -160,9 +160,7 @@
                                                         <!-- Unduh -->
                                                         <a type="button" class="btn btn-warning m-1" href="{{ asset('storage/' . $as->uploaded_file) }}" download>Unduh</a>
                                                         <!-- Lihat -->
-                                                        <button type="button" class="btn btn-primary m-1">Lihat</button>
-
-
+                                                        <a type="button" class="btn btn-primary m-1" href="{{ url('/arsip-surat/show/' . $as->id) }}">Lihat</a>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -184,13 +182,7 @@
                                     </button>
 
                                     <!-- Pagination -->
-                                    <ul class="pagination justify-content-end">
-                                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                    </ul>
+                                    {!! $arsipSurat->withQueryString()->links('pagination::bootstrap-5') !!}
                                 </div>
                             </div>
                         </div>

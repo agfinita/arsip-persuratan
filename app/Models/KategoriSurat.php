@@ -17,7 +17,7 @@ class KategoriSurat extends Model
     ];
 
     // Relasi one to many dengan arsip surat
-    public function arsipSurat() {
-        return $this->hasMany(ArsipSurat::class, 'kategori_id');
+    public function suratDiarsip() {
+        return $this->hasMany(SuratDiarsip::class, 'id_kategori');
     }
 }

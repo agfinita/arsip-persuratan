@@ -22,10 +22,10 @@ class KategoriSuratController extends Controller
             $kategoriSurat = KategoriSurat::where('nama_kategori', 'like', '%' . $valueCari . '%')
                 ->orWhere('keterangan', 'like', '%' . $valueCari . '%')
                 ->orderBy('id')
-                ->get();
+                ->paginate(2);
         } else {
             // Jika tidak ada nilai pencarian, tampilkan semua data kategori
-            $kategoriSurat = KategoriSurat::orderBy('id')->get();
+            $kategoriSurat = KategoriSurat::orderBy('id')->paginate(2);
         }
 
         return view('kategori.index', compact('kategoriSurat', 'valueCari'));

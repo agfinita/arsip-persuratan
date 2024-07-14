@@ -90,7 +90,7 @@
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <div>
-                            <h1 class="h3 mb-2 text-gray-800">Arsip Surat >> Unggah</h1>
+                            <h1 class="h3 mb-2 text-gray-800">Arsip Surat &raquo; Unggah</h1>
                             <p>Unggah surat yang telah terbit pada form ini untuk diarsipkan.<br>
                                 Catatan:
                             <ul>
@@ -102,10 +102,11 @@
 
                     <!-- Content -->
                     <div class="card shadow mb-4">
-                        <div class="card-body">
-                            <form id="create-form-data" action="{{ url('/arsip-surat') }}" method="POST" enctype="multipart/form-data">
-                                @csrf
 
+                        <form id="create-form-data" action="{{ url('/arsip-surat') }}" method="POST"
+                            enctype="multipart/form-data">
+                            @csrf
+                            <div class="card-body">
                                 <!-- Nomor Surat -->
                                 <div class="form-group row">
                                     <label for="nomor_surat" class="col-sm-12 col-md-2 col-form-label">Nomor
@@ -148,21 +149,22 @@
                                 <!-- Waktu Pengarsipan -->
                                 <div class="form-group row">
                                     <label for="waktu_arsip" class="col-sm-12 col-md-2 col-form-label">Waktu
-                                        Pengarsipan</label>
+                                        Unggah</label>
                                     <div class="col-sm-12 col-md-10">
                                         <input class="form-control" type="datetime-local" id="waktu_arsip"
                                             name="waktu_arsip">
                                     </div>
                                 </div>
+                            </div>
 
-                                <!-- Tombol Kembali dan Simpan -->
-                                <div class="d-flex justify-content-start">
-                                    <a href="{{ url('/arsip-surat') }}" class="btn btn-warning m-2">Kembali</a>
-                                    <button type="submit" id="kirim" name="kirim"  class="btn btn-primary m-2">Simpan</button>
-                                </div>
-                            </form>
+                            <!-- Tombol Kembali dan Simpan -->
+                            <div class=" card-footer d-flex justify-content-start">
+                                <a href="{{ url('/arsip-surat') }}" class="btn btn-warning m-2">Kembali</a>
+                                <button type="submit" id="kirim" name="kirim" class="btn btn-primary m-2">Simpan</button>
+                            </div>
+                        </form>
 
-                        </div>
+
                     </div>
 
                 </div>
